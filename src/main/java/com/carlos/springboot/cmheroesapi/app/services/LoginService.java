@@ -61,7 +61,7 @@ public class LoginService implements ILoginService {
 								.map(GrantedAuthority::getAuthority)
 								.collect(Collectors.toList()))
 				.setIssuedAt(new Date(System.currentTimeMillis()))
-				.setExpiration(new Date(System.currentTimeMillis() + 3600000)) //TOKEN será válido por una hora
+				.setExpiration(new Date(System.currentTimeMillis() + 3600000)) //TOKEN será válido por una hora 
 				.signWith(SignatureAlgorithm.HS512,
 						secretKey.getBytes()).compact();
 		

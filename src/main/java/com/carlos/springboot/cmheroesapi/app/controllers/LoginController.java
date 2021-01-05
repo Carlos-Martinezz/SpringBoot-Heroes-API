@@ -3,6 +3,7 @@ package com.carlos.springboot.cmheroesapi.app.controllers;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,6 +25,7 @@ import io.swagger.annotations.ApiResponses;
  */
 @RestController
 @RequestMapping("heroes-api/")
+@CrossOrigin(origins = "*")
 @Api(tags = "Seguridad")
 public class LoginController {
 	
