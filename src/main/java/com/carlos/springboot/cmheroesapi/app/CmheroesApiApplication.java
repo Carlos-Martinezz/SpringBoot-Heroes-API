@@ -23,8 +23,8 @@ public class CmheroesApiApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		uploadService.deleteAll();
-		uploadService.init();
+		/* uploadService.deleteAll(); Para eliminar la carpeta al reinicar el servidor*/
+		/* uploadService.init(); Para crear la carpeta*/
 	}
 
 }
