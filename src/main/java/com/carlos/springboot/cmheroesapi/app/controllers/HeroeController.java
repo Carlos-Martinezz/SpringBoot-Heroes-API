@@ -2,6 +2,8 @@ package com.carlos.springboot.cmheroesapi.app.controllers;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -10,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -82,37 +85,66 @@ public class HeroeController {
 	}
 	
 	/* Guardar un Héroe */
-	@PostMapping("saveHeroe/")
+	@PostMapping("saveHeroe")
 	@ApiOperation(
 			value = "Guardar un héroe", 
-			notes = "Recibe un objeto de tipo Heroe, y lo registra en la base de datos (Se debe omitir enviar el ID del héroe, ya que este es autogenerado).\n"
-					+ "Tome en cuenta que los formatos de fecha aceptados son: 02/12/2020 o 2020/12/02"
+			notes = "Recibe los datos de un héroe, y lo registra en la base de datos (Se debe omitir enviar el ID del héroe, ya que este es autogenerado).\n"
+					+ "Tome en cuenta que el formato de fecha aceptado será dd/MM/yyyy. La imagen del héroe es opcional"
 	)
 	public String saveHeroe(@RequestParam("nombre") String nombre, 
 							@RequestParam("biografia") String biografia,
 							@RequestParam("casa") String casa,
-							@RequestParam("aparicion") Date aparicion,
-							@RequestParam("file") MultipartFile foto,
+							@RequestParam("aparicion") String aparicion,
+							@RequestParam(name = "file", required = false) MultipartFile imagen,
 							HttpServletResponse res) {	
 		
-		String nombreImagen = null;
-
-		try {
-			nombreImagen = uploadService.copy(foto);
+		String nombreImagen = "";
+		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+		
+		if(imagen != null) {
 			
-			Heroe heroe = new Heroe(nombre, biografia, nombreImagen, aparicion, casa);
-			heroeService.save( heroe );
+			try {
+				
+				nombreImagen = uploadService.copy(imagen);
+				
+				Heroe heroe = new Heroe(nombre, biografia, nombreImagen, formato.parse(aparicion), casa);
+				heroeService.save( heroe );
+				
+				System.out.println(nombreImagen);
+				res.setStatus(201);
+				
+				return "Se creó el héroe";
+				
+			} catch (IOException | ParseException e) {
+				
+				System.out.println(e.getMessage());
+				res.setStatus(500);
+				
+				return "Error al subir el héroe: ".concat(e.getMessage());
+				
+			}
 			
-			System.out.println(nombreImagen);
-			res.setStatus(201);
+		} else {
 			
-			return "Se creó el héroe";
-		} catch (IOException e) {
-			System.out.println(e.getMessage());
-			res.setStatus(500);
-			
-			return "Error al subir el héroe: ".concat(e.getMessage());
+			try {
+				
+				Heroe heroe = new Heroe(nombre, biografia, nombreImagen, formato.parse(aparicion), casa);
+				heroeService.save( heroe );
+				
+				res.setStatus(201);
+				return "Se creó el héroe";
+				
+			} catch(ParseException e) {
+				
+				System.out.println(e.getMessage());
+				res.setStatus(500);
+				
+				return "Error al subir el héroe: ".concat(e.getMessage());
+				
+			}
 		}
+
+		
 		
 	}
 	
@@ -149,7 +181,7 @@ public class HeroeController {
 	}
 	
 	/* Actualizar un Héroe */
-	@PatchMapping("updateHeroe/")
+	@PatchMapping("updateHeroe")
 	@ApiOperation(
 			value = "Actualizar un héroe", 
 			notes = "Actualiza la información de un héroe.\n Recibe un objeto de tipo Heroe (Es necesario especificar el ID del héroe que se desea actualizar). \nDevuelve el nuevo héroe actualizado."
