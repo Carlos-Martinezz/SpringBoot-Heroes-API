@@ -12,6 +12,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 /**
  * @author Carlos Martínez
  * @version 1
@@ -37,6 +39,7 @@ public class Heroe implements Serializable {
 	private String rutaImagen;
 
 	@NotNull
+	@JsonFormat(pattern="dd/MM/yyyy")
 	private Date aparicion;
 
 	@NotBlank

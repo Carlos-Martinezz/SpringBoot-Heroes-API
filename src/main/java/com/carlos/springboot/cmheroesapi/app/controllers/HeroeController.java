@@ -142,9 +142,7 @@ public class HeroeController {
 				return "Error al subir el héroe: ".concat(e.getMessage());
 				
 			}
-		}
-
-		
+		}	
 		
 	}
 	
@@ -184,7 +182,7 @@ public class HeroeController {
 	@PatchMapping("updateHeroe")
 	@ApiOperation(
 			value = "Actualizar un héroe", 
-			notes = "Actualiza la información de un héroe.\n Recibe un objeto de tipo Heroe (Es necesario especificar el ID del héroe que se desea actualizar). \nDevuelve el nuevo héroe actualizado."
+			notes = "Actualiza la información de un héroe.\n Recibe un objeto de tipo Heroe (Es necesario especificar el ID del héroe que se desea actualizar). \nDevuelve el nuevo héroe actualizado.\nNota: La imagen del héroe no podrá actualizarse."
 	)
 	@ApiResponses({
         @ApiResponse(code = 201, message = "Héroe actualizado"),
@@ -201,7 +199,7 @@ public class HeroeController {
 		
 		nuevoHeroe.setNombre(heroe.getNombre());
 		nuevoHeroe.setBiografia(heroe.getBiografia());
-		nuevoHeroe.setRutaImagen(heroe.getRutaImagen());
+		/* nuevoHeroe.setRutaImagen(heroe.getRutaImagen()); */
 		nuevoHeroe.setAparicion(heroe.getAparicion());
 		nuevoHeroe.setCasa(heroe.getCasa());
 		
