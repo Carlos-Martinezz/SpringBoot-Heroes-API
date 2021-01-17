@@ -25,7 +25,6 @@ public class Usuario implements Serializable {
 	private Long id;
 
 	@NotBlank
-	@Column(unique = true)
 	private String usuario;
 
 	@NotBlank
