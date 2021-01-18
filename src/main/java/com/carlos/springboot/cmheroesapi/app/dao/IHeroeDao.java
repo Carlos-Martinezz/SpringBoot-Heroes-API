@@ -2,6 +2,7 @@ package com.carlos.springboot.cmheroesapi.app.dao;
 
 import java.util.List;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import com.carlos.springboot.cmheroesapi.app.entity.Heroe;
@@ -17,5 +18,8 @@ public interface IHeroeDao extends CrudRepository<Heroe, Long> {
 	public List<Heroe> findByNombreContaining( String nombre );
 	
 	public List<Heroe> findByCasa( String casa );
+	
+	@Query("SELECT casa FROM Heroe GROUP BY casa")
+	public List<String> getCasas();
 	
 }

@@ -57,4 +57,10 @@ public class HeroeServiceImpl implements IHeroeService {
 		heroeDao.delete( heroe );
 	}
 
+	@Override
+	@Transactional( readOnly = true )
+	public List<String> getCasas() {
+		return heroeDao.getCasas();
+	}
+
 }

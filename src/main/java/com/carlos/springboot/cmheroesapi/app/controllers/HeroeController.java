@@ -233,6 +233,15 @@ public class HeroeController {
 		
 	}
 	
+	@GetMapping("getCasas")
+	@ApiOperation(
+			value = "Obtener las casas guardadas", 
+			notes = "Devuelve todas las casas qeue stén registradas para los héroes"
+	)
+	public List<String> getCasas() {
+		return heroeService.getCasas();
+	}
+	
 }
 
 

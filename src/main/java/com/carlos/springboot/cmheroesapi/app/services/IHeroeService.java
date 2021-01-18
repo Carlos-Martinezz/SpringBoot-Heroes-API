@@ -24,6 +24,7 @@ public interface IHeroeService {
 	
 	public void delete( Heroe heroe );
 	
+	public List<String> getCasas();
 }
 
 
