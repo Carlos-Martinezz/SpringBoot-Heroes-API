@@ -18,11 +18,11 @@ Una vez que la aplicación esté en ejecución puede hacer uso de los distintos 
 * La URL base (localhost:8080) variará en función del servidor donde sea montado el servicio.
 
 ## Importante Leer
-* Usted puede clonar éste repositorio y utilizarlo para finez educativos siempre y cuando comparta sus cambios con la comunidad. 
+* Usted puede clonar éste repositorio y utilizarlo para fines educativos siempre y cuando comparta sus cambios con la comunidad. 
 * Usted puede contribuir a éste repositorio sugiriendo cambios que ayuden a mejorar el servicio.
 
 ## Desarrollador
 Carlos Martínez - Desarrollador Java & Angular
-&copy;-2020
+&copy;-2021
 
-### Happy Hacking, Developers. From El Salvador!
+Happy Hacking, Developers. From El Salvador!
