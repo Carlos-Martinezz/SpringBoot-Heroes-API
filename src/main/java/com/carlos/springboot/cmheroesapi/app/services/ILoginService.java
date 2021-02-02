@@ -12,6 +12,8 @@ public interface ILoginService {
 
 	public Usuario findUsuario(String usuario, String contrasena);
 	
+	public Usuario findUsuarioByUsuario(String usuario);
+	
 	public String getJWTToken(String username);
 	
 	public Usuario save(Usuario usuario);

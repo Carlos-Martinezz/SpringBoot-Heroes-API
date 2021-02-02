@@ -3,6 +3,7 @@ package com.carlos.springboot.cmheroesapi.app.controllers;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,6 +33,8 @@ public class LoginController {
 	@Autowired
 	private ILoginService loginService;
 	
+	private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(); 
+	
 	@PostMapping("login")
 	@ApiOperation(
 			value = "Autenticar usuario", 
@@ -42,9 +45,22 @@ public class LoginController {
         @ApiResponse(code = 404, message = "El usuario no fue encontrado")
 	})
 	public Usuario login(@RequestParam("usuario") String usuario, @RequestParam("contrasena") String contrasena, HttpServletResponse res) {
-		Usuario buscarUsuario = loginService.findUsuario(usuario, contrasena);
+		Usuario buscarUsuario = loginService.findUsuarioByUsuario(usuario);
 		
 		if(buscarUsuario == null) {
+			Usuario usuarioRes = new Usuario();
+			usuarioRes.setUsuario(usuario);
+			usuarioRes.setContrasena(null);
+			usuarioRes.setToken("No encontramos ningún usuario con las credenciales que proporcionaste");
+			
+			res.setStatus(404);
+			
+			return usuarioRes;
+		}
+		
+		boolean isMatch = passwordEncoder.matches(contrasena, buscarUsuario.getContrasena());
+
+		if(isMatch == false) {
 			Usuario usuarioRes = new Usuario();
 			usuarioRes.setUsuario(usuario);
 			usuarioRes.setContrasena(null);
@@ -81,8 +97,13 @@ public class LoginController {
 		Usuario nuevoUsuario = loginService.findUsuario(usuario, contrasena);
 		
 		if(nuevoUsuario == null) {
+			
+			Usuario nuevo = new Usuario();
+			nuevo.setUsuario(usuario);
+			nuevo.setContrasena(passwordEncoder.encode(contrasena));
+			
 			res.setStatus(201);
-			return loginService.save(new Usuario(usuario, contrasena));
+			return loginService.save(nuevo);
 		}
 		
 		nuevoUsuario = new Usuario(usuario, contrasena);

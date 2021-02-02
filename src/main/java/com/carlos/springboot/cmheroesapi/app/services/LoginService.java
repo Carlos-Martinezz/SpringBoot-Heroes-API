@@ -80,4 +80,9 @@ public class LoginService implements ILoginService {
 		return usuarioDao.save(usuario);
 	}
 
+	@Override
+	public Usuario findUsuarioByUsuario(String usuario) {
+		return usuarioDao.findUsuarioByUsuario(usuario);
+	}
+
 }

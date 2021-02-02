@@ -16,4 +16,6 @@ public interface IUsuarioDao extends CrudRepository<Usuario, Long> {
 	@Query("select u from Usuario u where u.usuario = ?1 and u.contrasena = ?2")
 	public Usuario findUsuario(String usuario, String contrasena);
 	
+	public Usuario findUsuarioByUsuario(String usuario);
+	
 }

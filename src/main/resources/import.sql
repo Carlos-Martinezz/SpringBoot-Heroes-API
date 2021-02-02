@@ -7,4 +7,4 @@ INSERT INTO heroes(nombre, biografia, ruta_imagen, aparicion, casa) VALUES("Spid
 INSERT INTO heroes(nombre, biografia, ruta_imagen, aparicion, casa) VALUES("Wolverine", "En el universo ficticio de Marvel, Wolverine posee poderes regenerativos que pueden curar cualquier herida, por mortal que ésta sea, además ese mismo poder hace que sea inmune a cualquier enfermedad existente en la Tierra y algunas extraterrestres . Posee también una fuerza sobrehumana, que si bien no se compara con la de otros superhéroes como Hulk, sí sobrepasa la de cualquier humano.", "wolverine.png", "1974-11-01", "Marvel");
 
 INSERT INTO usuarios(usuario, contrasena) VALUES("carlos", "12345");
-INSERT INTO usuarios(usuario, contrasena) VALUES("pedro", "1234");
+INSERT INTO usuarios(usuario, contrasena) VALUES("María", "1234");
