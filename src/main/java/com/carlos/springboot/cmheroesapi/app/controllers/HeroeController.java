@@ -42,7 +42,7 @@ import io.swagger.annotations.ApiResponses;
  * Controlador de las peticiones para el CRUD de los héroes
  */
 @RestController
-@RequestMapping( "heroes-api/" )
+@RequestMapping("heroes-api/")
 @CrossOrigin(origins = "*")
 @Api(tags = "Héroes")
 public class HeroeController {

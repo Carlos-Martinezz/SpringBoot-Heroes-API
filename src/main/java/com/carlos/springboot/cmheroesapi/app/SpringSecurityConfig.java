@@ -18,16 +18,17 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable()
-			.addFilterAfter(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
-			.authorizeRequests()
-			.antMatchers(HttpMethod.POST, "/heroes-api/login", "/heroes-api/crearUsuario").permitAll()
-			.antMatchers("/v2/api-docs",
-                    "/configuration/ui",
-                    "/swagger-resources/**",
-                    "/configuration/security",
-                    "/swagger-ui.html",
-                    "/webjars/**").permitAll()
-			.anyRequest().permitAll();
+		.addFilterAfter(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
+		.authorizeRequests()
+		.antMatchers(HttpMethod.POST, "/heroes-api/login", "/heroes-api/crearUsuario").permitAll()
+		.antMatchers(HttpMethod.GET, "/heroes-api/getImage/**").permitAll()
+		.antMatchers("/v2/api-docs",
+                "/configuration/ui",
+                "/swagger-resources/**",
+                "/configuration/security",
+                "/swagger-ui.html",
+                "/webjars/**").permitAll()
+		.anyRequest().authenticated();
 	}
 	
 }
