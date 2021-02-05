@@ -105,11 +105,15 @@ public class LoginController {
 			nuevo.setContrasena(passwordEncoder.encode(contrasena));
 			
 			res.setStatus(201);
-			return loginService.save(nuevo);
+			
+			Usuario saveUsuario = loginService.save(nuevo);
+			saveUsuario.setContrasena("");
+			saveUsuario.setToken("Se creó el usuario.");
+			return saveUsuario;
 		}
 		
-		nuevoUsuario = new Usuario(usuario, contrasena);
-		nuevoUsuario.setToken("El usuario ya existe");
+		nuevoUsuario = new Usuario(usuario, null);
+		nuevoUsuario.setToken("El usuario ya existe.");
 		res.setStatus(409);
 		
 		return nuevoUsuario;
